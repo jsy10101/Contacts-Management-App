@@ -27,9 +27,9 @@ def get_contacts():
   contacts = Contact.query.all()
   json_contacts =  list(map(lambda x: x.to_json(), contacts))
   return (jsonify({"contacts": json_contacts}), 200)
-@app.route("/update_contact/<int:user_id>", methods=["PATCH"])
 
 # Update
+@app.route("/update_contact/<int:user_id>", methods=["PATCH"])
 def update_contact(user_id):
   contact = Contact.query.get(user_id)
 
@@ -53,8 +53,8 @@ def delete_contact(user_id):
   if not contact:
     return (jsonify({"message": "User not found"}), 404)
 
-  db._session.delete(contact)
-  db.commit()
+  db.session.delete(contact)
+  db.session.commit()
 
   return jsonify({"message": "User deleted!"}, 200)
 
